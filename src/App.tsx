@@ -4,15 +4,18 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { Navbar } from './components/navbar'
+import { CoffeeContextProvider } from './Context/CoffeeContext'
 
 export function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={defaultTheme}>
-        <Navbar />
-        <Router />
+    <ThemeProvider theme={defaultTheme}>
+      <BrowserRouter>
+        <CoffeeContextProvider>
+          <Navbar />
+          <Router />
+        </CoffeeContextProvider>
         <GlobalStyle />
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }

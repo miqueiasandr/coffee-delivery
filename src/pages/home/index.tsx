@@ -6,11 +6,16 @@ import {
   IconBannerPackage,
   IconBannerShoppingCart,
   IconBannerTimer,
+  MainContainer,
 } from './styles'
 import BannerImage from '../../assets/BannerImage.png'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { CoffeeCard } from './components/coffee'
+import { useContext } from 'react'
+import { CoffeeContext } from '../../Context/CoffeeContext'
 
 export function Home() {
+  const { coffees } = useContext(CoffeeContext)
   return (
     <HomeContainer>
       <BannerContainer>
@@ -54,6 +59,25 @@ export function Home() {
 
         <img src={BannerImage} alt="Copo de café bem grande" />
       </BannerContainer>
+
+      <MainContainer>
+        <h1>Nossos cafés</h1>
+        <div>
+          {coffees.map((state) => {
+            return (
+              <CoffeeCard
+                key={state.id}
+                id={state.id}
+                img={state.img}
+                type={state.type}
+                name={state.name}
+                description={state.description}
+                value={state.value}
+              />
+            )
+          })}
+        </div>
+      </MainContainer>
     </HomeContainer>
   )
 }

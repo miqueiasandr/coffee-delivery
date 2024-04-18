@@ -8,7 +8,7 @@ export const HomeContainer = styled.div`
 export const BannerContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 5.75rem;
+  margin: 5.75rem 0 5.75rem 0;
 `
 
 export const BoxTextBannerContainer = styled.div`
@@ -100,5 +100,23 @@ export const IconBannerCoffee = styled(IconsBannerBase)`
     &::before {
       background: ${(props) => props.theme.purple};
     }
+  }
+`
+
+export const MainContainer = styled.main`
+  margin-top: 2rem;
+
+  > h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: 'Baloo 2', sans-serif;
+  }
+
+  > div {
+    margin-top: 3.375rem;
+    margin-bottom: 9.8125rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2.5rem 2rem;
   }
 `
