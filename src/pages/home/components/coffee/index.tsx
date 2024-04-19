@@ -4,7 +4,7 @@ import { CoffeeContainer, FooterContainer } from './styles'
 interface CoffeeCardProps {
   id: number
   img: string
-  type: string
+  type: string[]
   name: string
   description: string
   value: number
@@ -15,7 +15,11 @@ export function CoffeeCard(data: CoffeeCardProps) {
     <CoffeeContainer key={data.id}>
       <header>
         <img src={data.img} alt="" />
-        <p>{data.type}</p>
+        <div>
+          {data.type.map((type) => {
+            return <p key={type}>{type}</p>
+          })}
+        </div>
       </header>
       <h1>{data.name}</h1>
       <p>{data.description}</p>

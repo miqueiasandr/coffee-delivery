@@ -15,15 +15,19 @@ export const CoffeeContainer = styled.div`
       margin-top: -1.25rem;
     }
 
-    p {
-      margin: 0.75rem auto 0;
-      width: fit-content;
-      font-size: 0.625rem;
-      font-weight: bold;
-      padding: 0.25rem 0.5rem;
-      border-radius: 100px;
-      color: ${(props) => props.theme['yellow-dark']};
-      background-color: ${(props) => props.theme['yellow-light']};
+    div {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.75rem;
+      p {
+        width: fit-content;
+        font-size: 0.625rem;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+        border-radius: 100px;
+        color: ${(props) => props.theme['yellow-dark']};
+        background-color: ${(props) => props.theme['yellow-light']};
+      }
     }
   }
 
@@ -35,6 +39,7 @@ export const CoffeeContainer = styled.div`
   }
 
   > p {
+    margin-top: 0.5rem;
     font-size: 0.875rem;
     font-family: 'Roboto', sans-serif;
     color: ${(props) => props.theme['base-label']};
@@ -68,7 +73,7 @@ export const FooterContainer = styled.footer`
 
     div {
       display: flex;
-      gap: 0.25rem;
+      gap: 0.5rem;
       align-items: center;
       border-radius: 6px;
       padding: 0.5rem;

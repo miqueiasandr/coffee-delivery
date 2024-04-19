@@ -21,7 +21,7 @@ interface CoffeeContextProviderProps {
 export interface Coffee {
   id: number
   img: string
-  type: []
+  type: string[]
   name: string
   description: string
   value: number
@@ -36,11 +36,11 @@ export const CoffeeContext = createContext({} as CoffeeContextData)
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [coffees, setCoffees] = useState([
+  const [coffees /* setCoffees */] = useState([
     {
       id: 1,
       img: Expresso,
-      type: 'TRADICIONAL',
+      type: ['TRADICIONAL'],
       name: 'Expresso Tradicional',
       description: 'O tradicional café feito com água quente e grãos moídos',
       value: 9.9,
@@ -48,7 +48,7 @@ export function CoffeeContextProvider({
     {
       id: 2,
       img: ExpressoAmericano,
-      type: 'TRADICIONAL',
+      type: ['TRADICIONAL'],
       name: 'Expresso Americano',
       description: 'Expresso diluído, menos intenso que o tradicional',
       value: 9.9,
@@ -56,7 +56,7 @@ export function CoffeeContextProvider({
     {
       id: 3,
       img: ExpressoCremoso,
-      type: 'TRADICIONAL',
+      type: ['TRADICIONAL'],
       name: 'Expresso Cremoso',
       description: 'Café expresso tradicional com espuma cremosa',
       value: 9.9,
@@ -66,87 +66,92 @@ export function CoffeeContextProvider({
       img: ExpressoGelado,
       type: ['TRADICIONAL', 'GELADO'],
       name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      description: 'Bebida preparada com café expresso e cubos de gelo',
       value: 9.9,
     },
     {
       id: 5,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: CafeComLeite,
+      type: ['TRADICIONAL', 'COM LEITE'],
+      name: 'Café com Leite',
+      description: 'Meio a meio de expresso tradicional com leite vaporizado',
       value: 9.9,
     },
     {
       id: 6,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Latte,
+      type: ['TRADICIONAL', 'COM LEITE'],
+      name: 'latte',
+      description:
+        'Uma dose de café expresso com o dobro de leite e espuma cremosa',
       value: 9.9,
     },
     {
       id: 7,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Capuccino,
+      type: ['TRADICIONAL', 'COM LEITE'],
+      name: 'Capuccino',
+      description:
+        'Bebida com canela feita de doses iguais de café, leite e espuma',
       value: 9.9,
     },
     {
       id: 8,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Macchiato,
+      type: ['TRADICIONAL', 'COM LEITE'],
+      name: 'Macchiato',
+      description:
+        'Café expresso misturado com um pouco de leite quente e espuma',
       value: 9.9,
     },
     {
       id: 9,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Mocaccino,
+      type: ['TRADICIONAL', 'COM LEITE'],
+      name: 'Mocaccino',
+      description: 'Café expresso com calda de chocolate, pouco leite e espuma',
       value: 9.9,
     },
     {
       id: 10,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: ChocolateQuente,
+      type: ['ESPECIAL', 'COM LEITE'],
+      name: 'Chocolate Quente',
+      description:
+        'Bebida feita com chocolate dissolvido no leite quente e café',
       value: 9.9,
     },
     {
       id: 11,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Cubano,
+      type: ['ESPECIAL', 'ALCÓOLICO', 'GELADO'],
+      name: 'Cubano',
+      description:
+        'Drink gelado de café expresso com rum, creme de leite e hortelã',
       value: 9.9,
     },
     {
       id: 12,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Havaiano,
+      type: ['ESPECIAL'],
+      name: 'Havaiano',
+      description: 'Bebida adocicada preparada com café e leite de coco',
       value: 9.9,
     },
     {
       id: 13,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Arabe,
+      type: ['ESPECIAL'],
+      name: 'Árabe',
+      description: 'Bebida preparada com grãos de café árabe e especiarias',
       value: 9.9,
     },
     {
       id: 14,
-      img: ExpressoAmericano,
-      type: 'TRADICIONAL',
-      name: 'Expresso Americano',
-      description: 'Expresso diluído, menos intenso que o tradicional',
+      img: Irlandes,
+      type: ['ESPECIAL', 'ALCÓOLICO'],
+      name: 'Irlandês',
+      description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
       value: 9.9,
     },
   ])
