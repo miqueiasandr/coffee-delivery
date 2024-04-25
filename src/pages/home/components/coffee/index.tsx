@@ -1,16 +1,16 @@
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
 import { CoffeeContainer, FooterContainer } from './styles'
+import { Coffee, CoffeeContext } from '../../../../Context/CoffeeContext'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../../../../Context/ShoppingCart'
 
-interface CoffeeCardProps {
-  id: number
-  img: string
-  type: string[]
-  name: string
-  description: string
-  value: number
-}
+export function CoffeeCard(data: Coffee) {
+  const { addCoffeeToCart } = useContext(ShoppingCartContext)
+  const { increaseAmountCoffee, decreaseAmountCoffee } =
+    useContext(CoffeeContext)
 
-export function CoffeeCard(data: CoffeeCardProps) {
+  const priceValue = Number(data.value) * data.quantity
+
   return (
     <CoffeeContainer key={data.id}>
       <header>
@@ -25,16 +25,20 @@ export function CoffeeCard(data: CoffeeCardProps) {
       <p>{data.description}</p>
       <FooterContainer>
         <span>
-          R$<p>{String(data.value)}</p>
+          R$<p>{priceValue.toFixed(2)}</p>
         </span>
 
         <section>
           <div>
-            <Minus />
-            1
-            <Plus />
+            <Minus onClick={() => decreaseAmountCoffee(data.id)} />
+            {data.quantity}
+            <Plus onClick={() => increaseAmountCoffee(data.id)} />
           </div>
-          <ShoppingCart size={22} weight="fill" />
+          <ShoppingCart
+            size={22}
+            weight="fill"
+            onClick={() => addCoffeeToCart(data.id)}
+          />
         </section>
       </FooterContainer>
     </CoffeeContainer>

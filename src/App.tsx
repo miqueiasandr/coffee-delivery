@@ -5,14 +5,17 @@ import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { Navbar } from './components/navbar'
 import { CoffeeContextProvider } from './Context/CoffeeContext'
+import { ShoppingCartContextProdiver } from './Context/ShoppingCart'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
         <CoffeeContextProvider>
-          <Navbar />
-          <Router />
+          <ShoppingCartContextProdiver>
+            <Navbar />
+            <Router />
+          </ShoppingCartContextProdiver>
         </CoffeeContextProvider>
         <GlobalStyle />
       </BrowserRouter>

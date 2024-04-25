@@ -80,19 +80,29 @@ export const FooterContainer = styled.footer`
       background: ${(props) => props.theme['base-button']};
 
       svg {
-        color: ${(props) => props.theme.purple};
+        color: ${(props) => props.theme['purple-dark']};
         cursor: pointer;
+        transition: 0.1s;
+
+        &:hover {
+          color: ${(props) => props.theme.purple};
+        }
       }
     }
 
     > svg {
       color: ${(props) => props.theme['base-card']};
-      background: ${(props) => props.theme['purple-dark']};
       height: 2.375rem;
       width: 2.375rem;
       padding: 0.5rem;
       border-radius: 6px;
       cursor: pointer;
+      background: ${(props) => props.theme['purple-dark']};
+      transition: 0.1s;
+
+      &:hover {
+        background: ${(props) => props.theme.purple};
+      }
     }
   }
 `

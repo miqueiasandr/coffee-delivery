@@ -72,6 +72,7 @@ export function Home() {
                 type={state.type}
                 name={state.name}
                 description={state.description}
+                quantity={state.quantity}
                 value={state.value}
               />
             )

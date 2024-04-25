@@ -24,11 +24,15 @@ export interface Coffee {
   type: string[]
   name: string
   description: string
-  value: number
+  quantity: number
+  value: string
 }
 
 interface CoffeeContextData {
   coffees: Coffee[]
+  increaseAmountCoffee: (id: number) => void
+  decreaseAmountCoffee: (id: number) => void
+  resetAmountCoffee: (id: number) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextData)
@@ -36,14 +40,15 @@ export const CoffeeContext = createContext({} as CoffeeContextData)
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [coffees /* setCoffees */] = useState([
+  const [coffees, setCoffees] = useState([
     {
       id: 1,
       img: Expresso,
       type: ['TRADICIONAL'],
       name: 'Expresso Tradicional',
       description: 'O tradicional café feito com água quente e grãos moídos',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 2,
@@ -51,7 +56,8 @@ export function CoffeeContextProvider({
       type: ['TRADICIONAL'],
       name: 'Expresso Americano',
       description: 'Expresso diluído, menos intenso que o tradicional',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 3,
@@ -59,15 +65,17 @@ export function CoffeeContextProvider({
       type: ['TRADICIONAL'],
       name: 'Expresso Cremoso',
       description: 'Café expresso tradicional com espuma cremosa',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 4,
       img: ExpressoGelado,
       type: ['TRADICIONAL', 'GELADO'],
-      name: 'Expresso Americano',
+      name: 'Expresso Gelado',
       description: 'Bebida preparada com café expresso e cubos de gelo',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 5,
@@ -75,7 +83,8 @@ export function CoffeeContextProvider({
       type: ['TRADICIONAL', 'COM LEITE'],
       name: 'Café com Leite',
       description: 'Meio a meio de expresso tradicional com leite vaporizado',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 6,
@@ -84,7 +93,8 @@ export function CoffeeContextProvider({
       name: 'latte',
       description:
         'Uma dose de café expresso com o dobro de leite e espuma cremosa',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 7,
@@ -93,7 +103,8 @@ export function CoffeeContextProvider({
       name: 'Capuccino',
       description:
         'Bebida com canela feita de doses iguais de café, leite e espuma',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 8,
@@ -102,7 +113,8 @@ export function CoffeeContextProvider({
       name: 'Macchiato',
       description:
         'Café expresso misturado com um pouco de leite quente e espuma',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 9,
@@ -110,7 +122,8 @@ export function CoffeeContextProvider({
       type: ['TRADICIONAL', 'COM LEITE'],
       name: 'Mocaccino',
       description: 'Café expresso com calda de chocolate, pouco leite e espuma',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 10,
@@ -119,7 +132,8 @@ export function CoffeeContextProvider({
       name: 'Chocolate Quente',
       description:
         'Bebida feita com chocolate dissolvido no leite quente e café',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 11,
@@ -128,7 +142,8 @@ export function CoffeeContextProvider({
       name: 'Cubano',
       description:
         'Drink gelado de café expresso com rum, creme de leite e hortelã',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 12,
@@ -136,7 +151,8 @@ export function CoffeeContextProvider({
       type: ['ESPECIAL'],
       name: 'Havaiano',
       description: 'Bebida adocicada preparada com café e leite de coco',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 13,
@@ -144,7 +160,8 @@ export function CoffeeContextProvider({
       type: ['ESPECIAL'],
       name: 'Árabe',
       description: 'Bebida preparada com grãos de café árabe e especiarias',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
     {
       id: 14,
@@ -152,12 +169,66 @@ export function CoffeeContextProvider({
       type: ['ESPECIAL', 'ALCÓOLICO'],
       name: 'Irlandês',
       description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
-      value: 9.9,
+      quantity: 1,
+      value: (9.9).toFixed(2),
     },
   ])
 
+  function increaseAmountCoffee(id: number) {
+    const increasedCoffee = coffees.map((coffee) => {
+      if (coffee.id === id) {
+        return {
+          ...coffee,
+          quantity: coffee.quantity + 1,
+        }
+      }
+      return coffee
+    })
+
+    setCoffees(increasedCoffee)
+  }
+
+  function decreaseAmountCoffee(id: number) {
+    const decreasedCoffee = coffees.map((coffee) => {
+      if (coffee.id === id) {
+        if (coffee.quantity === 1) {
+          return coffee
+        } else {
+          return {
+            ...coffee,
+            quantity: coffee.quantity - 1,
+          }
+        }
+      }
+      return coffee
+    })
+
+    setCoffees(decreasedCoffee)
+  }
+
+  function resetAmountCoffee(id: number) {
+    setCoffees((state) =>
+      state.map((coffee) => {
+        if ((id = coffee.id)) {
+          return {
+            ...coffee,
+            quantity: 1,
+          }
+        }
+        return coffee
+      }),
+    )
+  }
+
   return (
-    <CoffeeContext.Provider value={{ coffees }}>
+    <CoffeeContext.Provider
+      value={{
+        coffees,
+        increaseAmountCoffee,
+        decreaseAmountCoffee,
+        resetAmountCoffee,
+      }}
+    >
       {children}
     </CoffeeContext.Provider>
   )

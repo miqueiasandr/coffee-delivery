@@ -29,12 +29,35 @@ export const ActionsContainer = styled.div`
       color: ${(props) => props.theme.purple};
     }
   }
-  div + div {
+  a {
     border-radius: 6px;
     background-color: ${(props) => props.theme['yellow-light']};
+    height: 38px;
+    width: 38px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     svg {
       color: ${(props) => props.theme.yellow};
+    }
+
+    span {
+      position: absolute;
+      top: -20%;
+      right: -20%;
+      background: red;
+      border-radius: 50%;
+      width: 1.25rem;
+      height: 1.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 0.75rem;
+      color: ${(props) => props.theme.white};
+      background: ${(props) => props.theme['yellow-dark']};
     }
   }
 `
