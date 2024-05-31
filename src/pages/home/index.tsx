@@ -16,6 +16,7 @@ import { CoffeeContext } from '../../Context/CoffeeContext'
 
 export function Home() {
   const { coffees } = useContext(CoffeeContext)
+
   return (
     <HomeContainer>
       <BannerContainer>

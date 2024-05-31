@@ -8,6 +8,7 @@ interface ShoppingCartContextData {
   increaseCoffeeQuantityInCart: (id: number) => void
   decreaseCoffeeQuantityInCart: (id: number) => void
   removeCoffeeFromShoppingCart: (id: number) => void
+  clearShoppingCart: () => void
   shoppingCartTotalValue: () => string
 }
 
@@ -90,6 +91,13 @@ export function ShoppingCartContextProdiver({
             }
           })
 
+        case 'CLEAR_CART':
+          return produce(state, (draft) => {
+            while (draft.length) {
+              draft.pop()
+            }
+          })
+
         default:
           return state
       }
@@ -135,6 +143,12 @@ export function ShoppingCartContextProdiver({
     })
   }
 
+  function clearShoppingCart() {
+    dispatch({
+      type: 'CLEAR_CART',
+    })
+  }
+
   function shoppingCartTotalValue() {
     const total = shoppingCart.reduce((total, coffee) => {
       return total + Number(coffee.value) * coffee.quantity
@@ -152,6 +166,7 @@ export function ShoppingCartContextProdiver({
         decreaseCoffeeQuantityInCart,
         removeCoffeeFromShoppingCart,
         shoppingCartTotalValue,
+        clearShoppingCart,
       }}
     >
       {children}

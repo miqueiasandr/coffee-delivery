@@ -6,6 +6,7 @@ import { defaultTheme } from './styles/themes/default'
 import { Navbar } from './components/navbar'
 import { CoffeeContextProvider } from './Context/CoffeeContext'
 import { ShoppingCartContextProdiver } from './Context/ShoppingCart'
+import { OrdersContextProvider } from './Context/OrdersContext'
 
 export function App() {
   return (
@@ -14,7 +15,9 @@ export function App() {
         <CoffeeContextProvider>
           <ShoppingCartContextProdiver>
             <Navbar />
-            <Router />
+            <OrdersContextProvider>
+              <Router />
+            </OrdersContextProvider>
           </ShoppingCartContextProdiver>
         </CoffeeContextProvider>
         <GlobalStyle />

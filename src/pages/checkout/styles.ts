@@ -15,7 +15,7 @@ export const CheckoutContainer = styled.div`
     color: ${(props) => props.theme['base-subTitle']};
   }
 `
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   > div {
     background-color: ${(props) => props.theme['base-card']};
     border-radius: 6px;
@@ -142,6 +142,7 @@ export const OrderListContainer = styled.div`
   padding: 2.5rem;
 
   > button {
+    text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;

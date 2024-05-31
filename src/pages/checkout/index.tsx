@@ -1,3 +1,6 @@
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 import {
   Bank,
   CreditCard,
@@ -18,6 +21,32 @@ import {
 } from './styles'
 import { ShoppingCartContext } from '../../Context/ShoppingCart'
 import { useContext } from 'react'
+import { OrdersContext } from '../../Context/OrdersContext'
+import { NavLink, useNavigate } from 'react-router-dom'
+
+const newOrderValidationSchema = zod.object({
+  cep: zod
+    .string()
+    .min(8, 'Um CEP válido possui 8 números.')
+    .max(8, 'Um CEP válido possui 8 números.'),
+  rua: zod.string().min(1, 'Sem isso nós não conseguiremos encontrar você.'),
+  numero: zod.string(),
+  complemento: zod.string(),
+  bairro: zod
+    .string()
+    .min(
+      1,
+      'Você com certeza tem um bairro, certo? Por favor nos fale qual é.',
+    ),
+  cidade: zod.string().min(1, 'Em qual cidade será a entrega?'),
+  uf: zod
+    .string()
+    .min(2, 'Precisamos apenas das iniciais do estado, obrigado.')
+    .max(2, 'Precisamos apenas das iniciais do estado, obrigado.'),
+  paymentMethod: zod.string(),
+})
+
+type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
 
 export function Checkout() {
   const {
@@ -28,11 +57,34 @@ export function Checkout() {
     shoppingCartTotalValue,
   } = useContext(ShoppingCartContext)
 
+  const { addNewOrder } = useContext(OrdersContext)
+
+  const navigate = useNavigate()
+
+  const { register, handleSubmit, reset } = useForm<NewOrderFormData>({
+    resolver: zodResolver(newOrderValidationSchema),
+    defaultValues: {
+      cep: '',
+      rua: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
+    },
+  })
+
+  function createNewOrder(data: any) {
+    addNewOrder(data)
+    reset()
+    navigate('/success')
+  }
+
   return (
     <CheckoutContainer>
       <h3>Complete seu pedido</h3>
       <h3>Cafés selecionados</h3>
-      <FormContainer>
+      <FormContainer onSubmit={handleSubmit(createNewOrder)}>
         <div>
           <header>
             <MapPinLine size={22} />
@@ -43,16 +95,20 @@ export function Checkout() {
           </header>
 
           <section>
-            <input type="text" placeholder="CEP" />
-            <input type="text" placeholder="Rua" />
+            <input type="text" placeholder="CEP" {...register('cep')} />
+            <input type="text" placeholder="Rua" {...register('rua')} />
             <div>
-              <input type="text" placeholder="Número" />
-              <input type="text" placeholder="Complemento" />
+              <input type="text" placeholder="Número" {...register('numero')} />
+              <input
+                type="text"
+                placeholder="Complemento"
+                {...register('complemento')}
+              />
             </div>
             <div>
-              <input type="text" placeholder="Bairro" />
-              <input type="text" placeholder="Cidade" />
-              <input type="text" placeholder="UF" />
+              <input type="text" placeholder="Bairro" {...register('bairro')} />
+              <input type="text" placeholder="Cidade" {...register('cidade')} />
+              <input type="text" placeholder="UF" {...register('uf')} />
             </div>
           </section>
         </div>
@@ -68,19 +124,34 @@ export function Checkout() {
           </header>
 
           <PaymentTypesContainer>
-            <input type="radio" id="credit" name="payment-mmethod" />
+            <input
+              type="radio"
+              id="credit"
+              value="Cartão de Crédito"
+              {...register('paymentMethod')}
+            />
             <label htmlFor="credit">
               <CreditCard size={16} />
               CARTÃO DE CRÉDITO
             </label>
 
-            <input type="radio" id="debit" name="payment-mmethod" />
+            <input
+              type="radio"
+              id="debit"
+              value="Cartão de Débito"
+              {...register('paymentMethod')}
+            />
             <label htmlFor="debit">
               <Bank size={16} />
               CARTÃO DE DÉBITO
             </label>
 
-            <input type="radio" id="money" name="payment-mmethod" />
+            <input
+              type="radio"
+              id="money"
+              value="Dinheiro"
+              {...register('paymentMethod')}
+            />
             <label htmlFor="money">
               <Money size={16} />
               DINHEIRO
@@ -140,8 +211,7 @@ export function Checkout() {
             <span>R$ {shoppingCartTotalValue()}</span>
           </div>
         </ValuesContainer>
-
-        <button type="submit">CONFIRMAR PEDIDO</button>
+        <button onClick={handleSubmit(createNewOrder)}>CONFIRMAR PEDIDO</button>
       </OrderListContainer>
     </CheckoutContainer>
   )
